@@ -27,52 +27,44 @@ char                *getSmallFileName(struct fileList *pFileList)
     }
 
     rtn = ft_strrchr(pFileList->pFileName, '/'); 
-    /*
-     *     TODO
-     *         */
 
-    return rtn == '\0' ? pFileList->pFileName : (rtn + 1);
+    return *rtn == '\0' ? pFileList->pFileName : (rtn + 1);
 }
 char                *getOwnerName(struct stat *fileAttr)
 {
-    /*TODO
-     *     struct passwd *ownerName;
-     *         */
+       struct passwd *ownerName;
+    
 
     if (!fileAttr)
     {
         return NULL;
     }
-    /*
-     *     ownerName = getpwuid(fileAttr->st_uid);
-     *      if (ownerName)
-     *          {
-     *                  return ownerName->pw_name;
-     *                      }
-     *                          return fileAttr->st_uid;*/
-    return "Felix";
+    
+    ownerName = getpwuid(fileAttr->st_uid);
+    if (ownerName)
+        {
+            return ownerName->pw_name;
+        }
+    return ft_itoa(fileAttr->st_uid);
 }
 
 char                *getOwnerGroup(struct stat *fileAttr)
 {
-    /*TODO
-     *     struct group  *ownerGroup;
-     *         */
+        struct group  *ownerGroup;
+            
 
     if (!fileAttr)
     {
         return NULL;
     }
-    /*
-     *  ownerGroup = getgrgid(fileAttr.st_gid);
-     *
-     *      if (ownerGroup)
-     *          {
-     *                  return ownerGroup->gr_name;
-     *                      }
-     *                          return fileAttr->st_gid;
-     *                              */
-    return "Felix";
+    
+    ownerGroup = getgrgid(fileAttr->st_gid);
+     
+    if (ownerGroup)
+    {
+        return ownerGroup->gr_name;
+    }
+    return ft_itoa(fileAttr->st_gid);
 }
 
 char                *getLastModification(struct stat *fileAttr)
@@ -118,6 +110,7 @@ char *getPermissions(struct stat *fileAttr)
 {
     char *tab;
     int mode;
+
     if (fileAttr)
     {
         mode = fileAttr->st_mode;
@@ -131,6 +124,7 @@ char *getPermissions(struct stat *fileAttr)
     {
         return NULL;
     }
+    
     tab[0] = ((mode & S_IRUSR) != 0) ? 'r' : '-';
     tab[1] = ((mode & S_IWUSR) != 0) ? 'w' : '-';
     tab[2] = ((mode & S_IXUSR) != 0) ? 'x' : '-';
@@ -145,7 +139,6 @@ char *getPermissions(struct stat *fileAttr)
         tab[2] = (mode & S_IXUSR) ? 's' : 'S'; 
     if (mode & S_ISGID)
         tab[5] = (mode & S_IXGRP ? 's' : 'S');
-    if (mode & S_ISVTX)
-        tab[8] = (mode & S_IXOTH ? 't' : 'T');
+    
     return tab;
 }

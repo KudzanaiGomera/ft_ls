@@ -136,6 +136,7 @@ int             processFiles(int params, DIR *pDir, struct fileList *pFileList)
 int             processFile(int params, struct fileList *pFileList)
 {
     int         rtn = EXIT_SUCCESS;
+    params = 0;
 
     pFileList->pFileAttr = malloc(sizeof(struct stat));
     if (!pFileList->pFileAttr)

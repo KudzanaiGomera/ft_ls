@@ -27,6 +27,7 @@
 #include <sys/stat.h>
 #include <time.h>
 #include <string.h>
+#include <fcntl.h>
 
 #define _L_LISTING_OPTION   (1 << 0)
 #define _A_HIDDEN_OPTION    (1 << 1)

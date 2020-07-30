@@ -39,9 +39,6 @@ int             displayResults(int options, struct fileList *pFileList)
             {
                 ft_putstr(getSmallFileName(pCurrent));
                 ft_putchar('\t');
-                /*
-                 * printf("%s\t", getSmallFileName(pCurrent));
-                 */
             }
 
             pCurrent = pCurrent->pNext;
@@ -69,16 +66,6 @@ int             displayList(struct fileList *pFileList)
     ft_putchar('\t');
     ft_putstr(getSmallFileName(pFileList));
     ft_putchar('\n');
-    /*
-    printf("%s\t%d\t%s\t%s\t%d\t%s\t%s\n",
-            pFilePerms,
-            getLinkCount(pFileList->pFileAttr),
-            getOwnerName(pFileList->pFileAttr),
-            getOwnerGroup(pFileList->pFileAttr),
-            getFileSize(pFileList->pFileAttr),
-            getLastModification(pFileList->pFileAttr),
-            getSmallFileName(pFileList));
-            */
 
     if (pFilePerms)
     {
@@ -99,17 +86,15 @@ int             displayRecursive(int options, struct fileList *pFileList)
     {
         if (pCurrent->isDir)
         {
-            /*
-            printf("%s:\n", pCurrent->pFileName);
-            */
             ft_putstr(pCurrent->pFileName);
             ft_putchar('\n');
             if (options & _L_LISTING_OPTION)
             {
                 printf("Total %ld\n", pCurrent->total);
+                ft_putnbr(pCurrent->total);
+                ft_putchar('\n');
             }
             rtn = displayChildren(options, pCurrent->pChild);
-            /*printf("\n\n");*/
             ft_putstr("\n\n");
             pCurrentChild = pCurrent->pChild;
 
@@ -130,9 +115,6 @@ int             displayRecursive(int options, struct fileList *pFileList)
         {
             ft_putstr(getSmallFileName(pCurrent));
             ft_putchar('\t');
-            /*
-            printf("%s\t", getSmallFileName(pCurrent));
-            */
         }
 
         pCurrent = pCurrent->pNext;
@@ -159,9 +141,6 @@ int             displayChildren(int options, struct fileList *pFileList)
         {
             ft_putstr(getSmallFileName(pCurrent));
             ft_putchar('\t');
-            /*
-            printf("%s\t", getSmallFileName(pCurrent));
-            */
         }
 
         pCurrent = pCurrent->pNext;

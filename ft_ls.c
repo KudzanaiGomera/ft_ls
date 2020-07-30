@@ -12,8 +12,6 @@
 
 #include "ft_ls.h"
 
-int             options = 0;
-
 int             main(int argc, char **argv)
 {
     int         options;
@@ -89,16 +87,10 @@ struct fileList *allocNode(char *parentPath, char *name)
         if (parentPath)
         {
             len = ft_strlen(parentPath) + ft_strlen(name) + 2;    
-            /*
-             *          TODO
-             *                      */
         }
         else
         {
             len = ft_strlen(name) + 1;
-            /*
-             *          TODO
-             *                      */
         }
 
         pNode->pFileName = malloc(sizeof(char) * len);
@@ -112,9 +104,6 @@ struct fileList *allocNode(char *parentPath, char *name)
         {
             if (parentPath)
             {
-                /*
-                 *          TODO
-                 *                      */
                 ft_strcpy(pNode->pFileName, parentPath);
                 ft_strcat(pNode->pFileName, "/");
                 ft_strcat(pNode->pFileName, name);
@@ -164,24 +153,10 @@ void           logError(char *desc)
     printf("ERROR: %s\n", desc);
     ft_putstr(desc);
     ft_putchar('\n');
-    /*
-     *  TODO proper error handling
-     *      */
 }
 void printUsage()
 {
     ft_putstr("ft_ls: illegal option -- ");
     ft_putstr("\nusage: ft_ls [-Ralrt] [file ...]\n");
     exit(0);
-    /*
-     *  TODO proper usage display
-     *      
-    printf("Usage: ft_ls [-a][-l][-r][-t][-R]\n");
-    printf("where \n");
-    printf("\tl\tList files\n");
-    printf("\ta\tDisplay hidden files\n");
-    printf("\tr\tPrint in reverse order\n");
-    printf("\tt\tSort files\n");
-    printf("\tR\tPrint recursively into directories\n");
-    */
 }

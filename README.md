@@ -56,3 +56,10 @@ info about ft_ls
    BASICALLY CHECKS THE FILES THAT ARE IN THE CURRENT DIRECTORY
    struct dirent *readdir(DIR *dirp);
    */
+
+### To Do
+
+- fix display to case sensetive, eg -l and -r
+- fix d permissions in -l
+- error handling if user pass dir that does not exist and as well as file
+- make flags work if the user pass dir after -l flag
