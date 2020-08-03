@@ -16,15 +16,17 @@ int             main(int argc, char **argv)
 {
     int         options;
     int         rtn = EXIT_SUCCESS;
+    char        *startDir = _DEFAULT_DIR;
 
-    options = processParams(argc, argv);
 
+    options = processParams(argc, argv, &startDir);
+    
     if (options >= 0)
     {
         /*
          *      allocate memory for file
          *              */
-        pFileListHead = allocNode(NULL, _DEFAULT_DIR);
+        pFileListHead = allocNode(NULL, startDir);
 
         if (pFileListHead)
         {
@@ -56,14 +58,21 @@ int             handleSort(int params, struct fileList *pFileList)
 {
     int         rtn = EXIT_SUCCESS;
 
-    if (params & _T_SORTED_OPTION)
-    {
-        bubbleSort(pFileList, _1_TIME_SORT);
-    }
-    else if (params & _R_REVERSE_OPTION)
+    if (params & _R_REVERSE_OPTION)
     {
         bubbleSort(pFileList, _0_NAME_SORT);
     }
+    else if (params & _T_SORTED_OPTION)
+    {
+        bubbleSort(pFileList, _1_TIME_SORT);
+    }
+    else
+    {
+        bubbleSort(pFileList, _2_ALPHA_SORT);
+    }
+    
+
+    
 
     return rtn;
 }
@@ -150,9 +159,8 @@ int             houseCleaning(struct fileList *pFileList)
 
 void           logError(char *desc)
 {
-    printf("ERROR: %s\n", desc);
+    ft_putstr("ft_ls: ");
     ft_putstr(desc);
-    ft_putchar('\n');
 }
 void printUsage()
 {

@@ -12,10 +12,10 @@
 
 #include "ft_ls.h"
 
-int             processParams(int argc, char **argv)
+int             processParams(int argc, char **argv, char **startDir)
 {
     int         rtn = 0;
-
+    
     for (int i = 1; i < argc; i++)
     {
         if (argv[i][0] == '-')
@@ -51,7 +51,7 @@ int             processParams(int argc, char **argv)
         }
         else
         {
-            rtn = -1;
+            *startDir = argv[i];
         }
         if (rtn < 0)
         {
@@ -70,7 +70,7 @@ int             processDirectory(int params, struct fileList *pFileList)
     pDir = opendir(pFileList->pFileName);
     if (!pDir)
     {
-        logError("Failed to open directory\n");
+        logError("No such file or directory \n");
         rtn = _ERROR;
     }
     else
@@ -82,6 +82,8 @@ int             processDirectory(int params, struct fileList *pFileList)
 
     return rtn;
 }
+
+
 
 int             processFiles(int params, DIR *pDir, struct fileList *pFileList)
 {
@@ -122,7 +124,7 @@ int             processFiles(int params, DIR *pDir, struct fileList *pFileList)
 
         rtn = processFile(params, pNewFileList);
 
-        if (pNewFileList->pDirent->d_type == DT_DIR)
+        if (S_ISDIR(pNewFileList->pFileAttr->st_mode))
         {
             pNewFileList->isDir = 1;
             rtn = processRecursive(params, pNewFileList, pDirent->d_name);
@@ -142,13 +144,13 @@ int             processFile(int params, struct fileList *pFileList)
     if (!pFileList->pFileAttr)
     {
         logError("processFile memory alloc");
+        ft_isdigit(params);
         rtn = _ERROR;
     }
     else
     {
         rtn = stat(pFileList->pFileName, pFileList->pFileAttr);
     }
-
     return rtn;
 }
 
@@ -158,7 +160,7 @@ int             processRecursive(int params, struct fileList *pFileList, char *s
 
     if ((params & _R_RECURSIVE_OPTION))
     {
-        if (ft_strcmp(".", simpleName) && ft_strcmp("..", simpleName)) /*TODO*/
+        if (ft_strcmp(".", simpleName) && ft_strcmp("..", simpleName))
         {
             rtn = processDirectory(params, pFileList);
         }

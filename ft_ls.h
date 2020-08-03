@@ -43,6 +43,7 @@
 
 #define _0_NAME_SORT    0
 #define _1_TIME_SORT    1
+#define _2_ALPHA_SORT   2
 #define _REVERSE_SORT   1
 
 #define _DEFAULT_DIR    "."
@@ -64,7 +65,7 @@ struct fileList
 
 struct fileList *pFileListHead;
 
-int processParams(int argc, char **argv);
+int processParams(int argc, char **argv, char **startDir);
 int handleSort(int params, struct fileList *pFileList);
 int processDirectory(int params, struct fileList *pFileList);
 int processFiles(int params, DIR *pDir, struct fileList *pFileList);

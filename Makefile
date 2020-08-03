@@ -16,7 +16,7 @@ LIBFT = libft/libft.a
 
 CC = gcc
 
-#CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror
 
 SRCS = ft_ls.c ft_sort.c process.c display.c get.c
 
@@ -27,7 +27,7 @@ all: $(NAME)
 
 $(NAME):
 		make -C libft all
-			$(CC) $(CFLAGS) $(SRCS) $(LIBFT) -o $(NAME) -g -std=gnu99
+			$(CC) $(CFLAGS) $(SRCS) $(LIBFT) -o $(NAME) -g -std=gnu99 
 
 clean:
 		make -C libft clean

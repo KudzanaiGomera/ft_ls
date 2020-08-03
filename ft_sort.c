@@ -40,10 +40,6 @@ void                bubbleSort(struct fileList *pFileList, int which)
             if (compareNode(ptr1, ptr1->pNext, which) > 0)
             {
                 swap(ptr1, ptr1->pNext, pFileList);
-                /*if (pFileList->pChild == ptr1)
-                 *                 {
-                 *                                  pFileList->pChild = lptr;
-                 *                                                  }*/
                 lptr = ptr1;
                 sorted = 0;
             }
@@ -52,9 +48,33 @@ void                bubbleSort(struct fileList *pFileList, int which)
     }
 }
 
+char *toUpperCase (char *str)
+{
+    char *rtn = malloc(ft_strlen(str));
+    size_t cnt;
+    
+    cnt = 0;
+    if (!rtn)
+    {
+        return rtn;
+    }
+
+    while(cnt < ft_strlen(str))
+    {
+        rtn[cnt] = str[cnt];
+
+        if (str[cnt] > 96 && str[cnt] < 123)
+        {
+            rtn[cnt] = str[cnt] - 32;
+        }
+        cnt++;
+    }
+    return rtn;
+}
 int             compareNode(struct fileList *a, struct fileList *b, int which)
 {
     int         rtn = 0;
+    char *firstStr, *secStr;
 
     if (!b && which == 0)
     {
@@ -64,19 +84,46 @@ int             compareNode(struct fileList *a, struct fileList *b, int which)
     {
         return -1;
     }
-    if (which == 0)
+    if (which == _0_NAME_SORT)
     {
-        rtn = strcmp(a->pFileName, b->pFileName);
+        firstStr = toUpperCase(a->pFileName);
+        secStr = toUpperCase(b->pFileName);
+
+        rtn = strcmp(firstStr, secStr);
+        if (firstStr)
+        {
+            free(firstStr);
+        }
+        if (secStr)
+        {
+            free(secStr);
+        }
 
         rtn = rtn * -1;
     }
-    else    
+    else if (which == _1_TIME_SORT)    
         /*
          *     time modified
          *         */
     {
         rtn = difftime (a->pFileAttr->st_mtime, b->pFileAttr->st_mtime);
     }
+    else
+    {
+        firstStr = toUpperCase(a->pFileName);
+        secStr = toUpperCase(b->pFileName);
+
+        rtn = strcmp(firstStr, secStr);
+        if (firstStr)
+        {
+            free(firstStr);
+        }
+        if (secStr)
+        {
+            free(secStr);
+        }
+    }
+    
     return rtn;
 }
 
@@ -103,4 +150,3 @@ void                swap(struct fileList *a, struct fileList *b, struct fileList
         a->pNext->pPrev = a;
     }
 }
-

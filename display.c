@@ -39,6 +39,7 @@ int             displayResults(int options, struct fileList *pFileList)
             {
                 ft_putstr(getSmallFileName(pCurrent));
                 ft_putchar('\t');
+                ft_putchar('\n');
             }
 
             pCurrent = pCurrent->pNext;
@@ -90,12 +91,13 @@ int             displayRecursive(int options, struct fileList *pFileList)
             ft_putchar('\n');
             if (options & _L_LISTING_OPTION)
             {
-                printf("Total %ld\n", pCurrent->total);
+                ft_putstr("Total ");
                 ft_putnbr(pCurrent->total);
                 ft_putchar('\n');
             }
             rtn = displayChildren(options, pCurrent->pChild);
-            ft_putstr("\n\n");
+            ft_putstr("\n");
+            ft_putchar('\n');
             pCurrentChild = pCurrent->pChild;
 
             while (pCurrentChild)
